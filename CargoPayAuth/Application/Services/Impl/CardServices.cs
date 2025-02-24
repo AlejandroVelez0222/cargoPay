@@ -34,7 +34,7 @@ namespace CargoPayAuth.Application.Services.Impl
                 throw new ArgumentNullException(nameof(payQueryDto));
             }
             var card = GetCard(payQueryDto.CardNumber);
-            if (card == null || card.Balance < payQueryDto?.Amount)
+            if (card == null || card.Balance < payQueryDto?.Amount || card.CardCVV != payQueryDto?.CardCVV )
             {
                 return false; 
             }

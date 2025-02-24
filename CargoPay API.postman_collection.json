@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "cc0432b7-86b1-450d-9c21-2f7a4e78bbbf",
+		"name": "CargoPay API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "20003746"
+	},
+	"item": [
+		{
+			"name": "Crear Tarjeta",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImp0aSI6IjJkNWY3NjlkLTE5OTctNGZkNS1iYTA4LWNhN2VkOTYyMWJiZCIsImV4cCI6MTc0MDQwMjIyOSwiaXNzIjoiQ2FyZ29QYXkiLCJhdWQiOiJDYXJnb1BheVVzZXJzIn0.SUpaRRwf1f9C1I1aRvXykNad1wrk1ePiNgFuEzLQctE"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"request\": {\r\n    \"cardNumber\": \"123456789093457\",\r\n    \"cardClientName\": \"Jorge A Velez Q\",\r\n    \"cardCVV\": \"123\",\r\n    \"balance\": 3000\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5031/api/v1/create"
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar Saldo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5031/api/v1/balanceCard?Request.CardNumber=123456789093457",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5031",
+					"path": [
+						"api",
+						"v1",
+						"balanceCard"
+					],
+					"query": [
+						{
+							"key": "Request.CardNumber",
+							"value": "123456789093457"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Realizar Pago",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"request\": {\n    \"cardNumber\": \"123456789093457\",\n    \"CardCVV\":\"123\",\n    \"amount\": 1000\n  }\n}"
+				},
+				"url": "http://localhost:5031/api/v1/pay"
+			},
+			"response": []
+		},
+		{
+			"name": "obtener Fee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"request\": {\r\n    \"amount\": 2600\r\n  }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5031/api/v1/fee"
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"username\": \"admin\",\r\n  \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5031/api/v1/auth/login"
+			},
+			"response": []
+		}
+	]
+}

@@ -1,12 +1,9 @@
+using CargoPayAuth.Application.Auth;
 using CargoPayAuth.Application.Handlers.Extensions;
 using CargoPayAuth.Application.Services.Extensions;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 
 
 var builder = WebApplication.CreateBuilder(args);
-var jwtSettings = builder.Configuration.GetSection("Jwt");
-var key = jwtSettings["Key"] ?? "t3Pz9vJ!qGz#xL5Kd2Vp@Yc$MwXbRfNh";
 
 builder.Services.AddControllers();
 
@@ -23,22 +20,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddApplicationServices();
 builder.Services.AddApplicationHandlers();
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = "CargoPay",
-            ValidAudience = "CargoPayUsers",
-            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(key))
-        };
-    });
-
-builder.Services.AddAuthorization();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

@@ -26,7 +26,7 @@
                 result.Data = new PayResponseDto
                 {
                     Success = success,
-                    Message = "Pago no realizado. Verifique el saldo o el número de tarjeta."
+                    Message = "Pago no realizado. Verifique el saldo o el número de tarjeta o el CVV."
                 };
             }
             else
